@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { GameContext } from '../../game-context';
-import api from '../../services/api';
 import { SocketContext } from '../../socket-context';
 import Avatar from '../Avatar';
 import './styles.scss';
