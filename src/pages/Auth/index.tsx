@@ -1,7 +1,7 @@
 import React, { FormEvent, useState, ChangeEvent, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { SocketContext } from '../../socket-context';
-import { ServerRoom } from '../../@types/game';
+import { ServerRoom } from '../../interfaces/game';
 
 import logo from '../../assets/logo.svg';
 

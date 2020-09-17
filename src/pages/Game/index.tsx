@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { Challenge, ConnectedPlayer, GameInfo, SelectedChallenge, ServerRoom } from '../../@types/game';
+import { Challenge, ConnectedPlayer, GameInfo, SelectedChallenge, ServerRoom } from '../../interfaces/game';
 import logo from '../../assets/logo.svg';
 import Aside from '../../components/Aside';
 import CardList from '../../components/CardList';

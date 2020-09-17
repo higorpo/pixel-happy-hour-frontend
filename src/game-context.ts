@@ -1,4 +1,4 @@
-import { SelectedChallenge, ConnectedPlayer, Challenge } from './@types/game';
+import { SelectedChallenge, ConnectedPlayer, Challenge } from './interfaces/game';
 import React from 'react';
 
 
