@@ -1,0 +1,134 @@
+div#game-sidebar {
+    position: relative;
+    height: 100%;
+
+    button.open-close-sidebar {
+        position: absolute;
+        top: 50%;
+        left: -28px;
+        background-color: #3c0d39;
+        padding: 10px 10px;
+        border-top-right-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+
+    &.open {
+        > aside#sidebar {
+            display: block !important;
+        }
+    }
+
+    &.close {
+        > aside#sidebar {
+            display: none !important;
+        }
+    }
+
+    aside#sidebar {
+        background-color: #61155D;
+        width: 300px;
+        height: inherit;
+        padding: 20px;
+        display: block;
+    
+        > div.content {
+            margin-bottom: 10px;
+    
+            h1 {
+                font-size: 20px;
+                margin: 0px;
+            }
+    
+            p {
+                font-size: 14px;
+                margin: 0px;
+                margin-top: 10px;
+                text-align: justify;
+            }
+            
+            &:first-child {
+                p {
+                    max-height: 120px;
+                    overflow-y: auto;
+                    margin-right: -10px;
+                    padding-right: 10px;
+                }
+            }
+    
+            > div.players {
+                display: flex;
+                flex-direction: column;
+                margin-top: 10px;
+                flex-wrap: nowrap;
+                overflow-y: auto;
+                margin-right: -10px;
+                max-height: 200px;
+    
+                > div.avatar {
+                    margin-right: 10px;
+                }
+    
+                > div.player {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    margin-top: 10px;
+    
+                    > span {
+                        margin-left: 10px;
+                    } 
+                }
+            }
+    
+            > div.player-round {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                margin-top: 10px;
+    
+                > span {
+                    margin-left: 10px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 930px) {
+    div#game-sidebar {
+        position: absolute;
+        top: 0px;
+        overflow: auto;
+        height: 100%;
+        margin: 0px;
+        width: 100%;
+
+        button.open-close-sidebar {
+            left: auto;
+            right: calc(75% + 40px);
+            background-color: white;
+            color: #3c0d39;
+        }
+
+        &.open {
+            background: rgba(0,0,0,0.7);
+        }
+
+        &.close {
+            position: absolute;
+            width: 31px;
+            right: 0px;
+
+            > button.open-close-sidebar {
+                right: 0px;
+                background-color: #3c0d39;
+                color: white;
+            }
+        }
+
+        aside#sidebar {
+            width: 75%;
+            margin-left: auto;
+        }
+    }
+}

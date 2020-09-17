@@ -1,0 +1,100 @@
+.flip-container {
+    display: inline-block;
+    width: 300px;
+    height: 200px;
+    perspective: 1000px; 
+}
+
+.flipper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+.flip-active {
+    width: 100%;
+    height: 100%;
+    grid-row: span 2;
+    grid-column: span 2;
+    
+    > .flipper {
+        transform: rotateY(180deg);
+    }
+}
+
+.front, .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+}
+
+.back {
+    transform: rotateY(180deg);
+}
+
+
+.card {
+    border: 2px solid rgba(0,0,0,0.4);
+    border-radius: 10px;
+    
+    &:not(.flip-active) {
+        > .flipper {
+            > .front {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+
+                span {
+                    font-size: 80px;
+                    font-weight: bold;
+                    color: rgba(0,0,0,0.5);
+                }
+            }
+        }
+    }
+
+    &.flip-active {
+        > .flipper {
+            > .back {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+
+                * {
+                    margin: 0px;
+                }
+
+                h3 {
+                    text-transform: uppercase;
+                    margin-bottom: 30px;
+                    color: rgba(255,255,255,0.4);
+                }
+                
+                p {
+                    margin-top: 10px;
+                    margin-left: 20px;
+                    margin-right: 20px;
+                    text-align: center;
+                }
+
+                > div.buttons {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    margin-top: 30px;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 656px) {
+    .flip-container {
+        width: auto;
+    }
+}
