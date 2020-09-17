@@ -1,35 +1,71 @@
-form#identify {
+div#identify {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 40px;
-    margin-top: 100px;
+    align-items: flex-start;
+    max-width: 356px;
+    margin-left: auto;
+    margin-right: auto;
+    
+    img {
+        align-self: center;
+        margin-top: 40px;
+    }
 
-    fieldset {
-        margin-top: 30px;
+    label {
+        font-family: Roboto;
+        margin-top: 50px;
+        margin-bottom: 15px;
+        text-align: left;
+    }
+
+    input {
+        background-color: rgba(0,0,0,0.2);
+        outline: none;
         border: none;
-        display: flex;
-        flex-direction: column;
-        padding: 0px;
-        margin-bottom: 20px;
+        padding: 10px 20px;
+        font-size: 26px;
+        color: white;
+        margin: 0px;
 
-        label {
-            font-family: Roboto;
-            margin-bottom: 10px;
-        }
-
-        input {
-            background-color: rgba(0,0,0,0.2);
-            outline: none;
-            border: none;
-            padding: 10px 20px;
-            font-size: 26px;
-            color: white;
+        &::placeholder {
+            color: rgba(255,255,255,0.2);
         }
     }
 
-    button {
-        width: 100%;
+    .rooms {
+        margin-top: 15px;
+        
+        input {
+            margin-top: 10px;
+        }
+
+        .room-list {
+            list-style: none;
+            padding: 0px;
+            margin: 0px;
+            width: 100%;
+    
+            li {
+                padding: 10px;
+                background-color: rgba(0,0,0,0.2);
+                display: flex;
+                align-items: center;
+                margin-bottom: 5px;
+    
+                p {
+                    margin: 0px;
+                }
+    
+                > div:first-child {
+                    width: 100%;
+    
+                    p:first-child {
+                        font-weight: bold;
+                        font-size: 24px;
+                        margin-bottom: 10px;
+                    }
+                }
+            }
+        }
     }
 }

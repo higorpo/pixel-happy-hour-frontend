@@ -1,13 +1,21 @@
 import React, { useContext } from 'react';
+import { useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { GameContext } from '../../game-context';
 import api from '../../services/api';
+import { SocketContext } from '../../socket-context';
 import Avatar from '../Avatar';
 import './styles.scss';
 
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+}
 
 const Aside: React.FC = () => {
+    let query = useQuery();
+
     const gameContext = useContext(GameContext);
+    const io = useContext(SocketContext);
 
     /**
      * Handles
@@ -15,6 +23,8 @@ const Aside: React.FC = () => {
 
     // Função para iniciar o jogo
     function handleStartGame() {
+        const roomId = query.get('roomId');
+
         if (gameContext?.connectedPlayers && gameContext?.connectedPlayers.length < 2) {
             toast.error("Não é possível iniciar o jogo pois são necessarias pelo menos 2 pessoas para jogar!", {
                 position: "top-left",
@@ -28,34 +38,38 @@ const Aside: React.FC = () => {
             return;
         }
 
-        api.post(`/startgame`)
-            .catch(() => {
-                toast.error("Não foi possível iniciar o jogo!", {
-                    position: "top-left",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                })
-            });
+        io?.emit('start_game', roomId);
+
+        io?.on('start_game_error', () => {
+            toast.error("Não foi possível iniciar o jogo!", {
+                position: "top-left",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            })
+        })
     }
 
     // Função para resetar o jogo
     function handleResetGame() {
-        api.post(`/resetgame`)
-            .catch(() => {
-                toast.error("Não foi possível reiniciar o jogo!", {
-                    position: "top-left",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                })
-            });
+        const roomId = query.get('roomId');
+
+        io?.emit('reset_game', roomId);
+
+        io?.on('reset_game_error', () => {
+            toast.error("Não foi possível reiniciar o jogo!", {
+                position: "top-left",
+                autoClose: 3000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+            })
+        })
     }
 
     function handleToggleSidebar() {
@@ -80,7 +94,7 @@ const Aside: React.FC = () => {
                     <div className="content">
                         <h1 data-tip="Pessoa que irá jogar nesta rodada">Jogador desta rodada</h1>
                         <div className="player-round">
-                            <Avatar name={gameContext?.roundPlayer.name} />
+                            <Avatar name={gameContext?.roundPlayer.name} color={gameContext.roundPlayer.color} />
                             <span>{gameContext?.roundPlayer.id === gameContext?.playerId ? "Você" : gameContext?.roundPlayer.name}</span>
                         </div>
                     </div>
@@ -116,7 +130,7 @@ const Aside: React.FC = () => {
                         {
                             gameContext?.connectedPlayers.map((player, index) => (
                                 <div key={index} className="player">
-                                    <Avatar name={player.name} />
+                                    <Avatar name={player.name} color={player.color} />
                                     <span>{player.id === gameContext?.playerId ? "Você" : player.name}</span>
                                 </div>
                             ))

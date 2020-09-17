@@ -5,6 +5,8 @@ import { toast } from 'react-toastify';
 import { GameContext } from '../../game-context';
 
 import './styles.scss';
+import { SocketContext } from '../../socket-context';
+import { useLocation } from 'react-router-dom';
 
 interface CardProps {
     index: number;
@@ -12,8 +14,15 @@ interface CardProps {
     description: string;
 }
 
+function useQuery() {
+    return new URLSearchParams(useLocation().search);
+}
+
 const Card: React.FC<CardProps> = (props) => {
+    let query = useQuery();
+
     const gameContext = useContext(GameContext);
+    const io = useContext(SocketContext);
 
     const [isSelected, setIsSelected] = useState<boolean>(false);
 
@@ -32,36 +41,19 @@ const Card: React.FC<CardProps> = (props) => {
         gameContext.setCanSelectChallenge(false);
         setIsSelected(true);
 
-        api.post(`/selectchallenge`, {
+        const roomId = query.get('roomId');
+
+        io?.emit('selected_challenge', {
+            roomId,
             title,
             description
         })
-            .catch(() => {
-                toast.error("Não foi possível selecionar a challenge!", {
-                    position: "top-left",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                })
-            });
     }
 
     function handleChallengeConcluded(event: React.MouseEvent<HTMLButtonElement>) {
-        api.post(`/challengeconcluded`)
-            .catch(() => {
-                toast.error("Não foi possível selecionar a challenge!", {
-                    position: "top-left",
-                    autoClose: 3000,
-                    hideProgressBar: false,
-                    closeOnClick: true,
-                    pauseOnHover: true,
-                    draggable: true,
-                    progress: undefined,
-                })
-            });
+        const roomId = query.get('roomId');
+
+        io?.emit('challenge_conclude', roomId);
     }
 
     return (
