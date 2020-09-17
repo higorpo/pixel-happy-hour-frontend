@@ -2,7 +2,7 @@ import { toast } from 'react-toastify';
 import React from 'react';
 import socket from 'socket.io-client';
 
-const socketApi = 'http://10.1.1.105:3333';
+const socketApi = 'https://pixel-happy-hour.herokuapp.com/';
 const io = socket(socketApi, {
     query: {
         name: sessionStorage.getItem('playername')
