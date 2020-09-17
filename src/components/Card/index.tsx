@@ -1,12 +1,10 @@
-import React, { useState, useContext } from 'react';
-import api from '../../services/api';
-import { toast } from 'react-toastify';
-
-import { GameContext } from '../../game-context';
-
-import './styles.scss';
-import { SocketContext } from '../../socket-context';
+import React, { useContext, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { GameContext } from '../../game-context';
+import { SocketContext } from '../../socket-context';
+import './styles.scss';
+
+
 
 interface CardProps {
     index: number;
