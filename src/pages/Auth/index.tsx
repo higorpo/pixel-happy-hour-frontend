@@ -144,6 +144,7 @@ const Auth: React.FC = () => {
                                         <div>
                                             <p>{room.name}</p>
                                             <p>{room.players.length} jogadores</p>
+                                            {room.game_started && <p><em>Jogo em andamento!</em></p>}
                                         </div>
                                         <button disabled={room.game_started} onClick={() => handleEnterInRoom(room)}>Entrar</button>
                                     </li>
