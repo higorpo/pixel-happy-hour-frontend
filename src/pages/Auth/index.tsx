@@ -87,6 +87,10 @@ const Auth: React.FC = () => {
     }
 
     function handleEnterInRoom(room: ServerRoom) {
+        if(room.game_started) {
+            return alert("Não é possível entrar em um jogo que já está em andamento");
+        }
+        
         if (playername.trim().length == 0) {
             return;
         }
@@ -140,7 +144,6 @@ const Auth: React.FC = () => {
                                         <div>
                                             <p>{room.name}</p>
                                             <p>{room.players.length} jogadores</p>
-                                            {room.game_started && <p>Jogo em andamento, não é possível entrar!</p>}
                                         </div>
                                         <button disabled={room.game_started} onClick={() => handleEnterInRoom(room)}>Entrar</button>
                                     </li>
